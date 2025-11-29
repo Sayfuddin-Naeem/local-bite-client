@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useAuth } from "../../providers/AuthProvider";
+import { backEndLogin } from "./useBackendLogIn";
 
 export const useSignIn = () => {
   const { auth } = useAuth();
@@ -11,7 +12,13 @@ export const useSignIn = () => {
         email,
         password
       );
-      return userCredential.user;
+
+      const backendUser = await backEndLogin(userCredential?.user);
+
+      return {
+        fbUser: userCredential.user,
+        dbUser: backendUser,
+      };
     },
   });
 };
