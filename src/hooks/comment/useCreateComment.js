@@ -1,9 +1,9 @@
-import { useApiMutation } from "../../react-query/useApiMutation";
+import { useApiMutation } from "../useApiMutation";
 
 export const useCreateComment = () => {
   return useApiMutation({
     method: "POST",
-    url: "/comment",
+    url: "/comments",
     isPrivate: true,
   });
 };

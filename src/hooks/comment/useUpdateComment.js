@@ -1,9 +1,9 @@
-import { useApiMutation } from "../../react-query/useApiMutation";
+import { useApiMutation } from "../useApiMutation";
 
 export const useUpdateComment = (commentId) => {
   return useApiMutation({
     method: "PATCH",
-    url: `/comment/${commentId}`,
+    url: `/comments/${commentId}`,
     isPrivate: true,
   });
 };

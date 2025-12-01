@@ -1,9 +1,9 @@
-import { useApiMutation } from "../../react-query/useApiMutation";
+import { useApiMutation } from "../useApiMutation";
 
 export const useDeleteComment = (commentId) => {
   return useApiMutation({
     method: "DELETE",
-    url: `/comment/${commentId}`,
+    url: `/comments/${commentId}`,
     isPrivate: true,
   });
 };
