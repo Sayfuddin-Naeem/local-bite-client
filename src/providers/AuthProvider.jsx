@@ -1,31 +1,34 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { createContext, useContext, useEffect, useState } from "react";
 import app from "../firebase/firebase.config";
-import {
-  getAuth,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { backEndLogin } from "../hooks/auth";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
 const auth = getAuth(app);
 
 function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [fbUser, setFbUser] = useState(null);
+  const [dbUser, setDbUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        const backendUser = await backEndLogin(firebaseUser);
+        setFbUser(firebaseUser);
+        setDbUser(backendUser);
+      } else {
+        setFbUser(null);
+        setDbUser(null);
+      }
     });
     return () => unsubscribe();
   }, []);
 
   const authData = {
-    user,
+    fbUser,
+    dbUser,
     auth,
-    setUser,
-    loading
   };
 
   return <AuthContext value={authData}>{children}</AuthContext>;
