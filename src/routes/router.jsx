@@ -1,21 +1,23 @@
 import { createBrowserRouter } from "react-router";
 
 import MainLayout from "../layouts/MainLayout";
+// errors
+import PageNotFound from "../pages/error/PageNotFound";
 // security
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
-import PageNotFound from "../pages/error/PageNotFound";
 // Private page
 import MyFavorites from "../pages/private/MyFavorites/MyFavorites";
 import MyProfile from "../pages/private/MyProfile/MyProfile";
 import MyReviews from "../pages/private/MyReviews/MyReviews";
 // public page
 import About from "../pages/Public/About/About";
+import ForgotPassword from "../pages/public/ForgotPassword/ForgotPassword";
 import Home from "../pages/public/Home/Home";
-import ResetPassword from "../pages/public/ResetPassword/ResetPassword";
 import Reviews from "../pages/Public/Reviews/Reviews";
 import SignIn from "../pages/Public/SignIn/SignIn";
 import SignUp from "../pages/Public/SignUp/SignUp";
+import ResetPassword from "../pages/public/ResetPassword/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,7 @@ const router = createBrowserRouter([
             children: [
               { path: "/signin", Component: SignIn },
               { path: "/signup", Component: SignUp },
+              { path: "/forgot-password", Component: ForgotPassword },
               { path: "/reset-password", Component: ResetPassword },
             ],
           },

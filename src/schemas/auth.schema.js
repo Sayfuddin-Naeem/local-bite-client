@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // Sign up Schema
-export const registerSchema = z
+export const signUpSchema = z
   .object({
     displayName: z
       .string()
@@ -9,7 +9,7 @@ export const registerSchema = z
       .max(50, "Name must be less than 50 characters"),
     email: z.email("Invalid email address"),
     photoFile: z
-      .instanceof(File)
+      .instanceof(File, { message: "Photo is required" })
       .optional()
       .refine(
         (file) => !file || file.size <= 5000000,
@@ -34,12 +34,27 @@ export const registerSchema = z
   });
 
 // Sign in schema
-export const loginSchema = z.object({
+export const signInSchema = z.object({
   email: z.email("Invalid email address"),
   password: z.string().min(1, "Password is required"),
 });
 
-// Reset password schema
-export const resetPasswordSchema = z.object({
+// Forgot password schema
+export const forgotPasswordSchema = z.object({
   email: z.email("Invalid email address"),
 });
+
+// Reset password schema
+export const resetPasswordSchema = z
+  .object({
+    newPassword: z
+      .string()
+      .min(6, "Password must be at least 6 characters")
+      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .regex(/[a-z]/, "Password must contain at least one lowercase letter"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
