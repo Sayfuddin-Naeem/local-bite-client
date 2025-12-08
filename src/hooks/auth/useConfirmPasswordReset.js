@@ -5,9 +5,9 @@ import { useAuth } from "../../providers/AuthProvider";
 export const useConfirmPasswordReset = () => {
   const { auth } = useAuth();
   return useMutation({
-    mutationFn: async ({ actionCode, newPassword }) => {
-      await checkActionCode(auth, actionCode);
-      return confirmPasswordReset(auth, actionCode, newPassword);
+    mutationFn: async ({ oobCode, newPassword }) => {
+      await checkActionCode(auth, oobCode);
+      return confirmPasswordReset(auth, oobCode, newPassword);
     },
   });
 };

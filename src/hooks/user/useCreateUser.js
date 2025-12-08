@@ -1,4 +1,3 @@
-// hooks/user/useCreateUser.js
 import { useApiMutation } from "../useApiMutation";
 
 export const useCreateUser = () => {

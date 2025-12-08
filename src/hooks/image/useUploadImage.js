@@ -4,6 +4,6 @@ export const useUploadImage = () => {
   return useApiMutation({
     method: "POST",
     url: "/uploads/image",
-    isPrivate: true,
+    isPrivate: false,
   });
 };

@@ -6,7 +6,7 @@ export const useForgotPassword = () => {
   const { auth } = useAuth();
 
   return useMutation({
-    mutationFn: async (email) => {
+    mutationFn: async ({ email }) => {
       return sendPasswordResetEmail(auth, email);
     },
   });
