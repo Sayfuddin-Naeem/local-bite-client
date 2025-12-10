@@ -40,15 +40,15 @@
   --noise: 0;
 }
 
-@layer theme{
+@theme{
     /* fonts  */
     --font-popins: "Poppins", sans-serif;
-    --font-inter: "Inter", sans-serif;
+    --font-inter:"Inter", sans-serif;
 }
 
 @layer base{
     html{
-        font-size: 16px;
+        font-size: 100%;
     }
 
     *{
@@ -57,5 +57,11 @@
     }
     body{
         @apply bg-base-100;
+    }
+}
+
+@layer components{
+    .bg-gradient{
+        @apply bg-linear-to-br from-base-100 via-base-200 to-base-300;
     }
 }

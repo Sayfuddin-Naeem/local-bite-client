@@ -62,7 +62,7 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content mt-3 p-3 shadow-xl bg-base-100 rounded-(--radius-box) w-52 border border-base-300"
             >
               <li className="menu-title">
-                <span className="font-popins text-base">
+                <span className="font-popins text-base capitalize">
                   {dbUser?.displayName}
                 </span>
               </li>

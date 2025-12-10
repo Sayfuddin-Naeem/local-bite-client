@@ -1,13 +1,15 @@
 import { useForm } from "react-hook-form";
 import { Mail, Send } from "lucide-react";
 import InputField from "../../../components/form/InputField";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { forgotPasswordSchema } from "../../../schemas/auth.schema";
 
 export default function ForgotPasswordForm({ onSubmit, loading }) {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({resolver: zodResolver(forgotPasswordSchema)});
 
   const submitHandler = (data) => onSubmit(data, reset);
   return (
-    <form onSubmit={handleSubmit(submitHandler)} className="space-y-5">
+    <form onSubmit={handleSubmit(submitHandler)} noValidate className="space-y-5">
       <InputField
         label="Email"
         icon={Mail}
