@@ -7,6 +7,7 @@ import PasswordStrengthMeter from "../../../components/auth/PasswordStrengthMete
 import InputField from "../../../components/form/InputField";
 import PasswordField from "../../../components/form/PasswordField";
 import PhotoUploader from "../../../components/form/PhotoUploader";
+import getPasswordStrength from "../../../utils/auth.utils";
 
 function SignUpForm({onSubmit, loading}) {
   const [showPass, setShowPass] = useState(false);
@@ -17,6 +18,7 @@ function SignUpForm({onSubmit, loading}) {
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm({ resolver: zodResolver(signUpSchema) });
 
@@ -31,8 +33,10 @@ function SignUpForm({onSubmit, loading}) {
       setPreview(URL.createObjectURL(file));
     }
   };
+
+  const submitHandler = (data) => onSubmit(data, reset);
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+    <form onSubmit={handleSubmit(submitHandler)} className="space-y-5">
       <InputField
         label="Full Name"
         type="text"
@@ -98,30 +102,6 @@ function SignUpForm({onSubmit, loading}) {
       </button>
     </form>
   );
-}
-
-function getPasswordStrength(pass) {
-  if (!pass) return { strength: 0, text: "", color: "" };
-
-  let strength = 0;
-
-  // Length levels
-  if (pass.length >= 8) strength++;
-  if (pass.length >= 10) strength++;
-
-  // Character type checks
-  if (/[A-Z]/.test(pass)) strength++;
-  if (/[a-z]/.test(pass)) strength++;
-  if (/[0-9]/.test(pass)) strength++;
-  if (/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(pass)) strength++;
-
-  // Strength scale (0 - 8)
-  if (strength <= 2) return { strength: 25, text: "Weak", color: "bg-error" };
-  if (strength <= 4) return { strength: 50, text: "Fair", color: "bg-warning" };
-  if (strength === 5)
-    return { strength: 75, text: "Good", color: "bg-warning" };
-
-  return { strength: 100, text: "Strong", color: "bg-success" };
 }
 
 export default SignUpForm;

@@ -1,10 +1,11 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { LogIn, Mail } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import InputField from "../../../components/form/InputField";
 import PasswordField from "../../../components/form/PasswordField";
-import { useState } from "react";
 import { signInSchema } from "../../../schemas/auth.schema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Link } from "react-router";
 
 export default function SignInForm({ onSubmit, loading }) {
   const [showPass, setShowPass] = useState(false);
@@ -37,6 +38,14 @@ export default function SignInForm({ onSubmit, loading }) {
         setShow={setShowPass}
       />
 
+      <div className="flex justify-end">
+        <Link
+          to="/forgot-password"
+          className="text-sm text-neutral hover:underline"
+        >
+          Forgot Password?
+        </Link>
+      </div>
       <button
         type="submit"
         disabled={loading}

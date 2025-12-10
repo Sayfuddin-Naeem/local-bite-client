@@ -1,42 +1,61 @@
 import toast from "react-hot-toast";
 import { Link } from "react-router";
 import GoogleSignInButton from "../../../components/auth/GoogleSignInButton";
-import { backEndLogin, useGoogleSignIn } from "../../../hooks/auth";
+import { useGoogleSignIn } from "../../../hooks/auth";
 import { useSignIn } from "../../../hooks/auth/useSignIn";
+import { useCreateUser } from "../../../hooks/user";
 import { useAuth } from "../../../providers/AuthProvider";
 import SignInForm from "./SignInForm";
 
 export default function SignIn() {
-  const { setDbUser } = useAuth();
+  const { setIsLoadUser } = useAuth();
   const { mutateAsync: signIn, isPending } = useSignIn();
+  const { mutateAsync: createUser } = useCreateUser();
   const { mutateAsync: googleSignIn, isPending: isPendingGoogle } =
     useGoogleSignIn();
 
   const onSubmit = async (data, reset) => {
+    setIsLoadUser(false);
     try {
-      const fbUser = await signIn(data);
+      await signIn(data);
 
-      const backendUser = await backEndLogin(fbUser);
-      setDbUser(backendUser);
+      setIsLoadUser(true);
 
       toast.success("Logged in Successfully! 🎉");
       reset();
     } catch (err) {
       toast.error(err?.message || "Login failed");
+      // setIsLoadUser(true);
     }
   };
 
   // Google Login
   const handleGoogleSignIn = async () => {
+    setIsLoadUser(false);
     try {
       const fbUser = await googleSignIn();
 
-      const backendUser = await backEndLogin(fbUser);
-      setDbUser(backendUser);
+      try {
+        await createUser({
+          body: {
+            firebaseUid: fbUser.uid,
+            email: fbUser.email,
+            displayName: fbUser.displayName,
+            photoURL: fbUser.photoURL,
+            cloudinary_public_id: null,
+            role: "user",
+          },
+        });
+      } catch {
+        console.log("Skipping createUser — user already exists");
+      }
+
+      setIsLoadUser(true);
 
       toast.success("Google Sign-in Successful!");
     } catch (err) {
       toast.error(err?.message || "Google sign-in failed");
+      // setIsLoadUser(true);
     }
   };
 
