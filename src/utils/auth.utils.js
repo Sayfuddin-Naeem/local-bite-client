@@ -1,4 +1,3 @@
-
 export default function getPasswordStrength(pass) {
   if (!pass) return { strength: 0, text: "", color: "" };
 
@@ -22,3 +21,11 @@ export default function getPasswordStrength(pass) {
 
   return { strength: 100, text: "Strong", color: "bg-success" };
 }
+
+export const formatDate = (dateString) => {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+};
