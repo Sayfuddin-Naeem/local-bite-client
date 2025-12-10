@@ -7,6 +7,7 @@ import { useSignOut } from "../../../hooks/auth";
 import { useAuth } from "../../../providers/AuthProvider";
 import MainLinks from "./MainLinks";
 import ProfileLinks from "./ProfileLinks";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Navbar = () => {
         navigate("/signin");
       },
       onError: (error) => {
-        console.log("Logout failed:", error);
+        toast.error(`Logout failed: ${error}`)
       },
     });
   };
