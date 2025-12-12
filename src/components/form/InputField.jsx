@@ -1,17 +1,26 @@
 import { XCircle } from "lucide-react";
+import Label from "./Label";
 
-const InputField = ({ label, icon: Icon, error, register, name, type = "text", placeholder }) => (
+const InputField = ({
+  label,
+  icon,
+  iconColor,
+  error,
+  register,
+  name,
+  type = "text",
+  placeholder,
+}) => (
   <div>
-    <label className="block mb-2 text-sm font-medium">
-      {Icon && <Icon className="inline w-4 h-4 mr-2 text-primary" />}
-      {label}
-    </label>
+    <Label icon={icon} iconColor={iconColor} label={label} />
 
     <input
       type={type}
       placeholder={placeholder}
       {...register(name)}
-      className={`input input-bordered w-full rounded-2xl ${error ? "input-error" : ""}`}
+      className={`input input-bordered w-full rounded-[1.25rem] focus:outline-primary/30 focus:outline-2 ${
+        error ? "input-error" : ""
+      }`}
     />
 
     {error && (

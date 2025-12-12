@@ -5,6 +5,5 @@ export const useUpdateReview = (id) => {
     method: "patch",
     url: `/reviews/${id}`,
     isPrivate: true,
-    enabled: !!id,
   });
 };
