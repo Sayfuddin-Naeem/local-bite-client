@@ -16,7 +16,7 @@ import { useUpdateProfile } from "../../../../hooks/auth";
 import { useUploadImage } from "../../../../hooks/image";
 import { useUpdateUser } from "../../../../hooks/user";
 import { useAuth } from "../../../../providers/AuthProvider";
-import { profileSchema } from "../../../../schemas/auth.schema";
+import { profileUpdateSchema } from "../../../../schemas/profile.schema";
 import { formatDate } from "../../../../utils/auth.utils";
 import ProfileHeaderSkeleton from "./ProfileHeaderSkeleton";
 
@@ -32,7 +32,7 @@ function ProfileHeader() {
     setValue,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(profileSchema),
+    resolver: zodResolver(profileUpdateSchema),
     defaultValues: {
       displayName: "",
       photoFile: null,

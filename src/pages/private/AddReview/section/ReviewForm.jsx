@@ -42,13 +42,13 @@ function ReviewForm({ isEditMode, setRating, rating, onSubmit, reviewId }) {
     resolver: zodResolver(isEditMode ? editReviewSchema : reviewSchema),
   });
 
-  console.log(reviewData);
+  // console.log(reviewData);
   useEffect(() => {
     if (reviewId && reviewData) {
       const r = reviewData;
       const food = r.food;
       setReview(r);
-      console.log("reviewId:", reviewId, "review:", r);
+      // console.log("reviewId:", reviewId, "review:", r);
       reset({
         food: food.name,
         foodDescription: food.description[r.descriptionIndex],

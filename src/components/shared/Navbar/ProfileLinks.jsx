@@ -1,4 +1,10 @@
-import { SquareUserRound, NotebookPen, NotebookText, HeartPulse } from 'lucide-react';
+/* eslint-disable no-unused-vars */
+import {
+  HeartPulse,
+  NotebookPen,
+  NotebookText,
+  SquareUserRound,
+} from "lucide-react";
 import { Link } from "react-router";
 
 function ProfileLinks() {
@@ -10,10 +16,10 @@ function ProfileLinks() {
   ];
   return (
     <>
-      {links.map(({id, Icon, path, name}) => (
+      {links.map(({ id, Icon, path, name }) => (
         <li key={id}>
-          <Link to={path} className='text-[0.8rem] text-warning-content'>
-            <Icon size={15} className='text-primary' /> {name}
+          <Link to={path} className="text-[0.8rem] text-warning-content">
+            <Icon size={15} className="text-primary" /> {name}
           </Link>
         </li>
       ))}

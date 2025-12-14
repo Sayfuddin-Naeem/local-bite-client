@@ -1,7 +1,22 @@
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 
 export default function About() {
+  const aboutItem = [
+    {
+      title: "Discover Local Gems",
+      desc: "Explore new places based on real reviews and authentic photos.",
+    },
+    {
+      title: "Share Your Experience",
+      desc: "Post your food adventures and help others find tasty bites.",
+    },
+    {
+      title: "Connect & Engage",
+      desc: "Follow foodies, comment on dishes, and celebrate local flavors.",
+    },
+  ];
   return (
     <div className="font-popins min-h-screen bg-base-100 text-base-content p-8 md:p-16">
       {/* Hero Section */}
@@ -45,27 +60,16 @@ export default function About() {
         viewport={{ once: true }}
         className="mt-20 grid md:grid-cols-3 gap-6 max-w-6xl mx-auto"
       >
-        {[
-          {
-            title: "Discover Local Gems",
-            desc: "Explore new places based on real reviews and authentic photos.",
-          },
-          {
-            title: "Share Your Experience",
-            desc: "Post your food adventures and help others find tasty bites.",
-          },
-          {
-            title: "Connect & Engage",
-            desc: "Follow foodies, comment on dishes, and celebrate local flavors.",
-          },
-        ].map((item, i) => (
+        {aboutItem.map((item, i) => (
           <motion.div
             key={i}
             whileHover={{ y: -8 }}
             transition={{ type: "spring", stiffness: 200 }}
             className="p-6 rounded-box bg-base-300 shadow-sm"
           >
-            <h3 className="text-xl font-bold text-primary mb-2">{item.title}</h3>
+            <h3 className="text-xl font-bold text-primary mb-2">
+              {item.title}
+            </h3>
             <p className="text-neutral text-sm">{item.desc}</p>
           </motion.div>
         ))}

@@ -10,7 +10,7 @@ export default function FoodNotFound() {
       <motion.img
         src={Food}
         alt="Empty Food List"
-        className="w-120 mb-6 rounded-2xl"
+        className="w-150 mb-6 rounded-2xl"
         initial={{ y: -20, opacity: 0.7 }}
         animate={{ y: [0, -10, 0], opacity: 1 }}
         transition={{ duration: 2, repeat: Infinity }}

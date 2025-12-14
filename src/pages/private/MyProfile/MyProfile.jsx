@@ -7,10 +7,10 @@ import {
   Star,
   TrendingUp,
 } from "lucide-react";
-import ProfileHeader from "./Section/ProfileHeader";
-import { useSignOut } from "../../../hooks/auth";
-import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router";
+import { useSignOut } from "../../../hooks/auth";
+import ProfileHeader from "./Section/ProfileHeader";
 
 // Mock data - Replace with real data from your backend
 const mockUser = {
@@ -78,17 +78,17 @@ const MyProfile = () => {
   const { mutate: logout, isPending } = useSignOut();
 
   const handleLogout = () => {
-      logout(undefined, {
-        onSuccess: () => {
-          navigate("/signin");
-        },
-        onError: (error) => {
-          toast.error(`Logout failed: ${error}`)
-        },
-      });
-    };
+    logout(undefined, {
+      onSuccess: () => {
+        navigate("/signin");
+      },
+      onError: (error) => {
+        toast.error(`Logout failed: ${error}`);
+      },
+    });
+  };
   return (
-    <div className="min-h-screen bg-gradient py-8 px-4">
+    <div className="min-h-screen bg-gradient py-8 px-4 md:px-20">
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
         <ProfileHeader />
@@ -238,19 +238,25 @@ const MyProfile = () => {
               <h3 className="text-lg font-bold font-popins text-neutral mb-4">
                 Quick Actions
               </h3>
-              <div className="space-y-3">
-                <button className="btn btn-outline w-full rounded-2xl justify-start gap-3 border-primary text-primary hover:bg-primary hover:text-white">
-                  <Star className="w-5 h-5" />
-                  My Reviews
-                </button>
-                <button className="btn btn-outline w-full rounded-2xl justify-start gap-3 border-secondary text-secondary hover:bg-secondary hover:text-white">
-                  <Heart className="w-5 h-5" />
-                  My Favorites
-                </button>
-                <button className="btn btn-outline w-full rounded-2xl justify-start gap-3 border-accent text-accent hover:bg-accent hover:text-white">
-                  <MessageCircle className="w-5 h-5" />
-                  Add Review
-                </button>
+              <div className="flex flex-col gap-3">
+                <Link to={"/my-reviews"}>
+                  <button className="btn btn-outline w-full rounded-2xl justify-start gap-3 border-primary text-primary hover:bg-primary hover:text-white">
+                    <Star className="w-5 h-5" />
+                    My Reviews
+                  </button>
+                </Link>
+                <Link to={"/my-favorites"}>
+                  <button className="btn btn-outline w-full rounded-2xl justify-start gap-3 border-secondary text-secondary hover:bg-secondary hover:text-white">
+                    <Heart className="w-5 h-5" />
+                    My Favorites
+                  </button>
+                </Link>
+                <Link to={"/add-review"}>
+                  <button className="btn btn-outline w-full rounded-2xl justify-start gap-3 border-accent text-accent hover:bg-accent hover:text-white">
+                    <MessageCircle className="w-5 h-5" />
+                    Add Review
+                  </button>
+                </Link>
               </div>
             </div>
 
@@ -284,7 +290,11 @@ const MyProfile = () => {
             </div>
 
             {/* Logout Button */}
-            <button className="btn btn-error w-full rounded-2xl gap-2" onClick={handleLogout} disabled={isPending}>
+            <button
+              className="btn btn-error w-full rounded-2xl gap-2"
+              onClick={handleLogout}
+              disabled={isPending}
+            >
               <LogOut className="w-5 h-5" />
               {isPending ? "Logging out..." : "Logout"}
             </button>

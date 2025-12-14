@@ -11,13 +11,14 @@ import MyFavorites from "../pages/private/MyFavorites/MyFavorites";
 import MyProfile from "../pages/private/MyProfile/MyProfile";
 import MyReviews from "../pages/private/MyReviews/MyReviews";
 // public page
-import About from "../pages/Public/About/About";
+import AddEditReview from "../pages/private/AddReview/AddReview";
+import About from "../pages/public/About/About";
 import ForgotPassword from "../pages/public/ForgotPassword/ForgotPassword";
 import Home from "../pages/public/Home/Home";
+import ResetPassword from "../pages/public/ResetPassword/ResetPassword";
 import Reviews from "../pages/Public/Reviews/Reviews";
 import SignIn from "../pages/Public/SignIn/SignIn";
 import SignUp from "../pages/Public/SignUp/SignUp";
-import ResetPassword from "../pages/public/ResetPassword/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,11 @@ const router = createBrowserRouter([
             children: [
               { path: "/my-profile", Component: MyProfile },
               { path: "/my-reviews", Component: MyReviews },
+              { path: "/add-review", Component: AddEditReview },
+              {
+                path: "/edit-review/:id",
+                element: <AddEditReview isEditMode={true} />,
+              },
               { path: "/my-favorites", Component: MyFavorites },
             ],
           },

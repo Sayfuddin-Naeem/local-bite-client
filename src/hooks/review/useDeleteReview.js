@@ -1,9 +1,8 @@
 import { useApiMutation } from "../useApiMutation";
 
-export const useDeleteReview = (id) => {
+export const useDeleteReview = () => {
   return useApiMutation({
     method: "delete",
-    url: `/reviews/${id}`,
     isPrivate: true,
   });
 };
