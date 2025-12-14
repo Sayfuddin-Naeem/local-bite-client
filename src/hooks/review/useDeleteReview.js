@@ -2,7 +2,7 @@ import { useApiMutation } from "../useApiMutation";
 
 export const useDeleteReview = () => {
   return useApiMutation({
-    method: "delete",
+    method: "DELETE",
     isPrivate: true,
   });
 };

@@ -1,10 +1,8 @@
 import { useApiMutation } from "../useApiMutation";
 
-export const useRemoveFavorite = (reviewId) => {
+export const useRemoveFavorite = () => {
   return useApiMutation({
     method: "DELETE",
-    url: `/favorites/${reviewId}`,
     isPrivate: true,
-    enabled: !!reviewId,
   });
 };

@@ -26,7 +26,7 @@ const MyReviews = () => {
   const { dbUser } = useAuth();
 
   const { data, isLoading } = useUserReviews({
-    userId: dbUser._id,
+    userId: dbUser?._id,
     page,
     limit: 6,
   });
