@@ -76,8 +76,7 @@ const FavoriteCard = ({ favorite, onRemove, onViewReview }) => {
             </p>
           </div>
         </div>
-
-        {/* Added to Favorites Date */}
+        
         <div className="flex items-center gap-2 text-xs text-neutral mb-4">
           <Calendar className="w-3 h-3" />
           <span>Added {formatDate(favorite.createdAt)}</span>

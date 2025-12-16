@@ -1,11 +1,12 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Loader, Plus, Star } from "lucide-react";
+import { Plus, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import LoadingState from "../../../components/shared/LoadingState/LoadingState";
 import ReviewMobileCard from "../../../features/cards/MyReviews/ReviewMobileCard";
 import ReviewTableRow from "../../../features/cards/MyReviews/ReviewTableRow";
+import LoadMoreData from "../../../features/LoadMoreData/LoadMoreData";
 import DeleteConfirmationModal from "../../../features/modals/DeleteConfirmationModal";
 import { useDeleteReview, useUserReviews } from "../../../hooks/review";
 import { useAuth } from "../../../providers/AuthProvider";
@@ -25,12 +26,12 @@ const MyReviews = () => {
   const navigate = useNavigate();
   const { dbUser } = useAuth();
 
-  const { data, isLoading } = useUserReviews({
+  const { data, isPending: isPendingGet } = useUserReviews({
     userId: dbUser?._id,
     page,
     limit: 6,
   });
-  const { mutateAsync: deleteReview, isPending } = useDeleteReview();
+  const { mutateAsync: deleteReview, isPendingDelete } = useDeleteReview();
 
   useEffect(() => {
     if (data) {
@@ -82,7 +83,7 @@ const MyReviews = () => {
     setDeleteModal({ isOpen: false, review: null });
   };
 
-  if (isLoading) {
+  if (isPendingGet) {
     return <LoadingState />;
   }
   return (
@@ -137,38 +138,15 @@ const MyReviews = () => {
             />
           ))}
         </div>
-
+        
         {/* Load More Button */}
-        {hasMore && (
-          <div className="text-center">
-            <button
-              onClick={handleLoadMore}
-              disabled={isLoading}
-              className="btn btn-wide bg-primary text-white border-0 rounded-2xl hover:bg-[oklch(70%_0.18_45)] shadow-lg gap-2"
-            >
-              {isLoading ? (
-                <>
-                  <Loader className="w-5 h-5 animate-spin" />
-                  Loading...
-                </>
-              ) : (
-                <>Load More Reviews</>
-              )}
-            </button>
-          </div>
-        )}
-
-        {/* No More Reviews Message */}
-        {!hasMore && reviews.length > 0 && (
-          <div className="text-center py-8">
-            <div className="inline-flex items-center gap-2 text-neutral bg-white px-6 py-3 rounded-full shadow-lg">
-              <Star className="w-5 h-5 text-primary" />
-              <span className="font-inter">
-                You've reached the end of your reviews
-              </span>
-            </div>
-          </div>
-        )}
+        <LoadMoreData
+          hasMore={hasMore}
+          handleLoadMore={handleLoadMore}
+          isPending={isPendingGet}
+          totalItem={reviews.length}
+          itemName={"Reviews"}
+        />
 
         {/* Empty State */}
         {reviews.length === 0 && (
@@ -196,7 +174,7 @@ const MyReviews = () => {
         onClose={handleDeleteCancel}
         onConfirm={handleDeleteConfirm}
         reviewName={deleteModal.review?.food.name}
-        isDeleting={isPending}
+        isDeleting={isPendingDelete}
       />
     </div>
   );

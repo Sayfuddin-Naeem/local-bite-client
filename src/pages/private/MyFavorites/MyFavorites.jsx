@@ -6,9 +6,9 @@ import { useNavigate } from "react-router";
 import LoadingState from "../../../components/shared/LoadingState/LoadingState";
 import FavoriteCard from "../../../features/cards/FavoriteCard";
 import StatsCard from "../../../features/cards/StatsCard";
+import LoadMoreData from "../../../features/LoadMoreData/LoadMoreData";
 import RemoveFavoriteModal from "../../../features/modals/RemoveFavoriteModal";
-import { useRemoveFavorite } from "../../../hooks/favorite/useRemoveFavorite";
-import { useUserFavorites } from "../../../hooks/favorite/useUserFavorites";
+import { useRemoveFavorite, useUserFavorites } from "../../../hooks/favorite";
 import { useAuth } from "../../../providers/AuthProvider";
 import EmptyState from "./sections/EmptyState";
 
@@ -25,12 +25,12 @@ const MyFavorites = () => {
   const navigate = useNavigate();
   const { dbUser } = useAuth();
 
-  const { data, isPending } = useUserFavorites({
+  const { data, isPendingGet } = useUserFavorites({
     userId: dbUser?._id,
     page,
     limit: 6,
   });
-  const { mutateAsync: removeFavorite, isPending: isPendingFavorite } =
+  const { mutateAsync: removeFavorite, isPending: isPendingRemove } =
     useRemoveFavorite();
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const MyFavorites = () => {
   const handleRemoveConfirm = async () => {
     try {
       await removeFavorite({
-        url: `/favorites/${removeModal.favorite._id}`,
+        url: `/favorites/${removeModal.favorite.review._id}`,
       });
       toast.success("Review removed from favorite successfully");
 
@@ -68,7 +68,6 @@ const MyFavorites = () => {
       });
     } catch {
       toast.error("Failed to remove review from favorite");
-
     } finally {
       setRemoveModal({ isOpen: false, favorite: null });
     }
@@ -79,15 +78,14 @@ const MyFavorites = () => {
   };
 
   const handleViewReview = (reviewId) => {
-    console.log("View review:", reviewId);
-    alert(`Navigate to review detail page: ${reviewId}`);
+    navigate(`/review/${reviewId}`);
   };
 
   const handleBrowseReviews = () => {
     navigate("/reviews");
   };
 
-  if (isPending) {
+  if (isPendingGet) {
     return <LoadingState />;
   }
 
@@ -145,36 +143,13 @@ const MyFavorites = () => {
               ))}
             </div>
             {/* Load More Button */}
-            {hasMore && (
-              <div className="text-center">
-                <button
-                  onClick={handleLoadMore}
-                  disabled={isPending}
-                  className="btn btn-wide bg-primary text-white border-0 rounded-2xl hover:bg-[oklch(70%_0.18_45)] shadow-lg gap-2"
-                >
-                  {isPending ? (
-                    <>
-                      <Loader className="w-5 h-5 animate-spin" />
-                      Loading...
-                    </>
-                  ) : (
-                    <>Load More Reviews</>
-                  )}
-                </button>
-              </div>
-            )}
-
-            {/* No More Reviews Message */}
-            {!hasMore && favorites.length > 0 && (
-              <div className="text-center py-8">
-                <div className="inline-flex items-center gap-2 text-neutral bg-white px-6 py-3 rounded-full shadow-lg">
-                  <Star className="w-5 h-5 text-primary" />
-                  <span className="font-inter">
-                    You've reached the end of your reviews
-                  </span>
-                </div>
-              </div>
-            )}
+            <LoadMoreData
+              hasMore={hasMore}
+              handleLoadMore={handleLoadMore}
+              isPending={isPendingGet}
+              totalItem={favorites.length}
+              itemName={"Favorites"}
+            />
           </>
         ) : (
           <EmptyState
@@ -193,7 +168,7 @@ const MyFavorites = () => {
         onClose={handleRemoveCancel}
         onConfirm={handleRemoveConfirm}
         foodName={removeModal.favorite?.review.food.name}
-        isRemoving={isPendingFavorite}
+        isRemoving={isPendingRemove}
       />
     </div>
   );

@@ -19,6 +19,7 @@ import ResetPassword from "../pages/public/ResetPassword/ResetPassword";
 import Reviews from "../pages/Public/Reviews/Reviews";
 import SignIn from "../pages/Public/SignIn/SignIn";
 import SignUp from "../pages/Public/SignUp/SignUp";
+import ReviewDetail from "../pages/public/ReviewDetails/ReviewDetails";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
           },
           { path: "/reviews", Component: Reviews },
           { path: "/about", Component: About },
+          { path: "/review/:reviewId", Component: ReviewDetail },
         ],
       },
       {
