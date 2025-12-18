@@ -199,6 +199,8 @@ const ReviewDetail = () => {
     return <LoadingState />;
   }
 
+  if(!review)return null;
+
   return (
     <div className="min-h-screen bg-gradient py-8 px-4 md:px-12">
       <div className="max-w-5xl mx-auto">
@@ -294,14 +296,14 @@ const ReviewDetail = () => {
                 <div className="avatar">
                   <div className="w-14 h-14 rounded-full ring-2 ring-primary">
                     <img
-                      src={review?.user.photoURL}
-                      alt={review?.user.displayName}
+                      src={review?.user?.photoURL}
+                      alt={review?.user?.displayName}
                     />
                   </div>
                 </div>
                 <div>
                   <p className="font-semibold font-inter text-base-content">
-                    {review?.user.displayName}
+                    {review?.user?.displayName}
                   </p>
                   <div className="flex items-center gap-2 text-sm text-neutral">
                     <Calendar className="w-4 h-4" />
