@@ -333,7 +333,7 @@ const ReviewDetail = () => {
           <div className="space-y-6">
             <h2 className="text-3xl font-bold font-popins text-base-content flex items-center gap-3">
               <MessageCircle className="w-8 h-8 text-primary" />
-              Comments ({commentData?.totalComments || 0})
+              Comments ({comments ? comments.length : 0})
             </h2>
 
             {/* Add Comment Form or Auth Prompt */}

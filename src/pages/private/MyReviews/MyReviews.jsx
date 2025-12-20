@@ -84,6 +84,10 @@ const MyReviews = () => {
     setDeleteModal({ isOpen: false, review: null });
   };
 
+  const navigateAddReview = () => {
+    navigate("/add-review");
+  };
+
   if (isPendingGet) {
     return <LoadingState />;
   }
@@ -92,11 +96,11 @@ const MyReviews = () => {
       <div className="min-h-screen bg-gradient py-12 px-4 md:px-20">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <Header />
+          <Header onNavigate={navigateAddReview} />
 
           {/* Stats Cards */}
           <StatsCards
-            totalReview={data?.summary?.totalReview || 0}
+            totalReview={data?.summary?.totalReviews || 0}
             avgRating={data?.summary?.avgRating || 0}
             totalFavorite={data?.summary?.totalFavorites || 0}
           />
@@ -162,7 +166,10 @@ const MyReviews = () => {
               <p className="text-neutral font-inter mb-6">
                 Start sharing your food experiences with the community
               </p>
-              <button className="btn bg-primary text-white border-0 rounded-2xl gap-2 hover:bg-[oklch(70%_0.18_45)]">
+              <button
+                onClick={navigateAddReview}
+                className="btn bg-primary text-white border-0 rounded-2xl gap-2 hover:bg-[oklch(70%_0.18_45)]"
+              >
                 <Plus className="w-5 h-5" />
                 Add Your First Review
               </button>

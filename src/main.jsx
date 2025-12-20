@@ -17,7 +17,7 @@ createRoot(document.getElementById("root")).render(
           position="top-right"
           toastOptions={{
             style: {
-              marginTop: "80px",
+              marginTop: "70px",
               background: "rgba(255,255,255,0.9)",
               backdropFilter: "blur(10px)",
               boxShadow: "0 10px 25px rgba(0,0,0,0.15)",

@@ -10,11 +10,11 @@ function LoadMoreData({
   return (
     <>
       {hasMore && (
-        <div className="text-center">
+        <div className="text-center mt-8">
           <button
             onClick={handleLoadMore}
             disabled={isPending}
-            className="btn btn-wide bg-primary text-white border-0 rounded-2xl hover:bg-[oklch(70%_0.18_45)] shadow-lg gap-2"
+            className="btn btn-wide bg-primary/90 text-white border-0 rounded-2xl hover:bg-[oklch(70%_0.18_45)]/90 shadow-lg gap-2"
           >
             {isPending ? (
               <>

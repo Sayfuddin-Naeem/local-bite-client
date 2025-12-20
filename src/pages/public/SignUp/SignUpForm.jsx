@@ -92,7 +92,7 @@ function SignUpForm({onSubmit, loading}) {
         {loading ? (
           <>
             <span className="loading loading-spinner"></span>
-            Creating Account
+            Creating Account...
           </>
         ) : (
           <>

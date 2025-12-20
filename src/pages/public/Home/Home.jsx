@@ -63,7 +63,7 @@ const Home = () => {
   const { mutateAsync: removeFavorite } = useRemoveFavorite();
   const { data: trendingFoods, isPending: isPendingFood } = useTrendingFoods({
     page: 1,
-    limit: 6,
+    limit: 8,
   });
 
   const handleToggleFavorite = async ({

@@ -11,7 +11,7 @@ const PasswordField = ({ label, register, name, show, setShow, error }) => (
         type={show ? "text" : "password"}
         placeholder="••••••••"
         {...register(name)}
-        className={`input input-bordered w-full rounded-2xl pr-12 ${error ? "input-error" : ""}`}
+        className={`input input-bordered w-full rounded-2xl pr-12 focus:outline-primary/30 focus:outline-2 ${error ? "input-error" : ""}`}
       />
       <button
         type="button"

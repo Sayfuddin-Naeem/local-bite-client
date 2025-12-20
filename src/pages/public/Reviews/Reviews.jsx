@@ -48,7 +48,7 @@ const Reviews = () => {
   // api hooks
   const { data: reviewData, isPending: isPendingReview } = useAllReviews({
     page,
-    limit: 10,
+    limit: 9,
     search: debouncedSearch,
   });
   const { mutateAsync: addFavorite } = useAddFavorite();
