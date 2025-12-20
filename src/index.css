@@ -76,3 +76,37 @@
   }
 }
 
+/* Toast animation */
+/* Toast enter animation */
+@keyframes toast-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Toast exit animation */
+@keyframes toast-slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Apply animations */
+.react-hot-toast > div {
+  animation: toast-slide-in 0.4s ease-out;
+}
+
+.react-hot-toast > div[aria-hidden="true"] {
+  animation: toast-slide-out 0.3s ease-in;
+}
+

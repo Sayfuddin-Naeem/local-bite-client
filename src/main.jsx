@@ -17,10 +17,12 @@ createRoot(document.getElementById("root")).render(
           position="top-right"
           toastOptions={{
             style: {
-              background: "var(--color-base-100)",
-              color: "var(--color-base-content)",
-              fontWeight: 600,
-              border: "1.5px solid var(--color-primary)"
+              marginTop: "80px",
+              background: "rgba(255,255,255,0.9)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+              borderRadius: "12px",
+              border: "1.5px solid var(--color-primary)",
             },
             success: {
               iconTheme: {

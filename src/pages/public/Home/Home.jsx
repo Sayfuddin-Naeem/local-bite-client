@@ -122,116 +122,119 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient px-4 lg:px-12">
-      {/* Hero Section */}
-      <section className="py-8 px-4">
-        <div className="max-w-7xl mx-auto">
-          {isPendingSlider ? (
-            <HeroSliderSkeleton />
-          ) : (
-            <HeroSlider slides={heroSlides} />
-          )}
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-12 px-4 bg-base-200">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {statsData.map((stat, index) => (
-              <StatsCard
-                key={index}
-                icon={stat.icon}
-                value={stat.value}
-                label={stat.label}
-                color={stat.color}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Reviews Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <SectionHeader
-            icon={Star}
-            title="Featured Reviews"
-            subtitle="Top-rated food experiences from our community"
-            action={
-              <button
-                onClick={handleShowAllReviews}
-                className="btn btn-primary rounded-full gap-2"
-              >
-                Show All Reviews
-                <ArrowRight className="w-5 h-5" />
-              </button>
-            }
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {isPendingReview
-              ? [...Array(10)].map((_, i) => <ReviewCardSkeleton key={i} />)
-              : featuredReviews.reviews.map((review) => (
-                  <div key={review._id}>
-                    <ReviewCard
-                      review={review}
-                      onToggleFavorite={handleToggleFavorite}
-                      onViewDetails={handleViewDetails}
-                      setSignInModal={setSignInModal}
-                    />
-                  </div>
-                ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Trending Foods Section */}
-      <section className="py-16 px-4 bg-base-200">
-        <div className="max-w-7xl mx-auto">
-          <SectionHeader
-            icon={TrendingUp}
-            title="Trending Foods"
-            subtitle="Most loved dishes based on reviews and ratings"
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {isPendingFood ? (
-              <LoadingState />
+    <>
+      <title>Home - Local Bite</title>
+      <div className="min-h-screen bg-gradient px-4 lg:px-12">
+        {/* Hero Section */}
+        <section className="py-8 px-4">
+          <div className="max-w-7xl mx-auto">
+            {isPendingSlider ? (
+              <HeroSliderSkeleton />
             ) : (
-              trendingFoods.foods.map((food) => (
-                <TrendingFoodCard
-                  key={food._id}
-                  food={food}
-                  onViewReview={handleViewReviews}
-                />
-              ))
+              <HeroSlider slides={heroSlides} />
             )}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-5xl mx-auto">
-          <CTABanner
-            title="Join Our Food Community"
-            description="Share your food experiences, discover hidden gems, and connect with fellow food enthusiasts"
-            buttonText="Get Started Free"
-            onClick={handleNavigateSignIn}
-            bgGradient="bg-gradient-to-r from-primary to-secondary"
-          />
-        </div>
-      </section>
+        {/* Stats Section */}
+        <section className="py-12 px-4 bg-base-200">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              {statsData.map((stat, index) => (
+                <StatsCard
+                  key={index}
+                  icon={stat.icon}
+                  value={stat.value}
+                  label={stat.label}
+                  color={stat.color}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
 
-      {/* Sign In Modal */}
-      <SignInAlertModal
-        isOpen={signInModal.isOpen}
-        onConfirm={handleNavigateSignIn}
-        onClose={handleModalClose}
-        foodName={signInModal.foodName}
-      />
-    </div>
+        {/* Featured Reviews Section */}
+        <section className="py-16 px-4">
+          <div className="max-w-7xl mx-auto">
+            <SectionHeader
+              icon={Star}
+              title="Featured Reviews"
+              subtitle="Top-rated food experiences from our community"
+              action={
+                <button
+                  onClick={handleShowAllReviews}
+                  className="btn btn-primary rounded-full gap-2"
+                >
+                  Show All Reviews
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+              }
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {isPendingReview
+                ? [...Array(10)].map((_, i) => <ReviewCardSkeleton key={i} />)
+                : featuredReviews.reviews.map((review) => (
+                    <div key={review._id}>
+                      <ReviewCard
+                        review={review}
+                        onToggleFavorite={handleToggleFavorite}
+                        onViewDetails={handleViewDetails}
+                        setSignInModal={setSignInModal}
+                      />
+                    </div>
+                  ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Trending Foods Section */}
+        <section className="py-16 px-4 bg-base-200">
+          <div className="max-w-7xl mx-auto">
+            <SectionHeader
+              icon={TrendingUp}
+              title="Trending Foods"
+              subtitle="Most loved dishes based on reviews and ratings"
+            />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {isPendingFood ? (
+                <LoadingState />
+              ) : (
+                trendingFoods.foods.map((food) => (
+                  <TrendingFoodCard
+                    key={food._id}
+                    food={food}
+                    onViewReview={handleViewReviews}
+                  />
+                ))
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-16 px-4">
+          <div className="max-w-5xl mx-auto">
+            <CTABanner
+              title="Join Our Food Community"
+              description="Share your food experiences, discover hidden gems, and connect with fellow food enthusiasts"
+              buttonText="Get Started Free"
+              onClick={handleNavigateSignIn}
+              bgGradient="bg-gradient-to-r from-primary to-secondary"
+            />
+          </div>
+        </section>
+
+        {/* Sign In Modal */}
+        <SignInAlertModal
+          isOpen={signInModal.isOpen}
+          onConfirm={handleNavigateSignIn}
+          onClose={handleModalClose}
+          foodName={signInModal.foodName}
+        />
+      </div>
+    </>
   );
 };
 

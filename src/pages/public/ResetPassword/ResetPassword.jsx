@@ -28,32 +28,38 @@ export default function ResetPassword() {
 
   if (!oobCode || mode !== "resetPassword") {
     return (
-      <div className="text-center p-8">
-        <p className="text-xl font-bold">Invalid or expired link</p>
-        <Link to="/forgot-password" className="btn mt-4 btn-primary">
-          Try Again
-        </Link>
-      </div>
+      <>
+        <title>Reset Password - Local Bite</title>
+        <div className="text-center p-8">
+          <p className="text-xl font-bold">Invalid or expired link</p>
+          <Link to="/forgot-password" className="btn mt-4 btn-primary">
+            Try Again
+          </Link>
+        </div>
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="inline-block p-4 bg-primary rounded-2xl mb-4 shadow-lg">
-            <span className="text-4xl">🍊</span>
+    <>
+      <title>Reset Password - Local Bite</title>
+      <div className="min-h-screen bg-gradient flex items-center justify-center p-4">
+        <div className="w-full max-w-md">
+          <div className="text-center mb-8">
+            <div className="inline-block p-4 bg-primary rounded-2xl mb-4 shadow-lg">
+              <span className="text-4xl">🍊</span>
+            </div>
+            <h1 className="text-3xl font-bold text-base-content">
+              Choose a New Password
+            </h1>
+            <p className="text-neutral">Strong passwords keep you safe 🔒</p>
           </div>
-          <h1 className="text-3xl font-bold text-base-content">
-            Choose a New Password
-          </h1>
-          <p className="text-neutral">Strong passwords keep you safe 🔒</p>
-        </div>
 
-        <div className="bg-base-100 rounded-2xl shadow-2xl p-8 border-2 border-base-300">
-          <ResetPasswordForm onSubmit={onSubmit} loading={isPending} />
+          <div className="bg-base-100 rounded-2xl shadow-2xl p-8 border-2 border-base-300">
+            <ResetPasswordForm onSubmit={onSubmit} loading={isPending} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

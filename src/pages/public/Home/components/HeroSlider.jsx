@@ -13,7 +13,7 @@ const HeroSlider = ({ slides }) => {
 
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 3500);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [slides.length, isPaused]);
@@ -53,9 +53,10 @@ const HeroSlider = ({ slides }) => {
         >
           {/* Background Image */}
           <img
+            loading="lazy"
             src={slide.image}
             alt={slide.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-2000 scale-105"
           />
 
           {/* Overlay */}

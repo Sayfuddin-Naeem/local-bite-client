@@ -2,6 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useParams } from "react-router";
+import Tittle from "../../../components/shared/Tittle";
 import { useUploadImage } from "../../../hooks/image";
 import { useCreateReview, useUpdateReview } from "../../../hooks/review";
 import { useAuth } from "../../../providers/AuthProvider";
@@ -87,39 +88,41 @@ const AddEditReview = ({ isEditMode = false }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient py-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <Link to={"/my-profile"}>
-            <button className="btn btn-ghost gap-2 mb-4 text-neutral hover:text-primary">
-              <ArrowLeft className="w-5 h-5" />
-              Back
-            </button>
-          </Link>
-          <h1 className="text-4xl font-bold font-popins text-base-content mb-2">
-            {isEditMode ? "Edit Review" : "Add New Review"}
-          </h1>
-          <p className="text-neutral font-inter">
-            {isEditMode
-              ? "Update your food experience"
-              : "Share your food experience with the community"}
-          </p>
+    <Tittle titleText={"Add Review | Local Bite"}>
+      <div className="min-h-screen bg-gradient py-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          {/* Header */}
+          <div className="mb-8">
+            <Link to={"/my-profile"}>
+              <button className="btn btn-ghost gap-2 mb-4 text-neutral hover:text-primary">
+                <ArrowLeft className="w-5 h-5" />
+                Back
+              </button>
+            </Link>
+            <h1 className="text-4xl font-bold font-popins text-base-content mb-2">
+              {isEditMode ? "Edit Review" : "Add New Review"}
+            </h1>
+            <p className="text-neutral font-inter">
+              {isEditMode
+                ? "Update your food experience"
+                : "Share your food experience with the community"}
+            </p>
+          </div>
+
+          {/* Form Card */}
+          <ReviewForm
+            isEditMode={isEditMode}
+            setRating={setRating}
+            rating={rating}
+            onSubmit={onSubmit}
+            reviewId={reviewId}
+          />
+
+          {/* Tips Section */}
+          <Tips />
         </div>
-
-        {/* Form Card */}
-        <ReviewForm
-          isEditMode={isEditMode}
-          setRating={setRating}
-          rating={rating}
-          onSubmit={onSubmit}
-          reviewId={reviewId}
-        />
-
-        {/* Tips Section */}
-        <Tips />
       </div>
-    </div>
+    </Tittle>
   );
 };
 
