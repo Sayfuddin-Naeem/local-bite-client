@@ -1,9 +1,9 @@
 import { ExternalLink, Heart, MapPin, Star } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useGetFavorite } from "../../hooks/favorite";
 import { useAuth } from "../../providers/AuthProvider";
 import { formatDate } from "../../utils/auth.utils";
 import FavoriteButton from "./FavoriteButton";
-import { useGetFavorite } from "../../hooks/favorite";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
@@ -11,21 +11,22 @@ const ReviewCard = ({
   review,
   onToggleFavorite,
   onViewDetails,
+  setSignInModal,
 }) => {
   const [totalFavorite, setTotalFavorite] = useState(0);
   const [isFavorited, setIsFavorited] = useState(false);
 
   const { dbUser } = useAuth();
   const { data: favorite } = useGetFavorite({
-      userId: dbUser?._id,
-      reviewId: review?._id,
-    });
+    userId: dbUser?._id,
+    reviewId: review?._id,
+  });
 
   useEffect(() => {
     if (review) {
       setTotalFavorite(review.totalFavorite);
     }
-    if(favorite){
+    if (favorite) {
       setIsFavorited(true);
     }
   }, [review, favorite]);
@@ -33,11 +34,11 @@ const ReviewCard = ({
   if (!review) return null;
   return (
     <motion.div
-  layout
-  whileHover={{ y: -4 }}
-  transition={{ type: "spring", stiffness: 200, damping: 20 }}
-  className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group"
->
+      layout
+      whileHover={{ y: -4 }}
+      transition={{ type: "spring", stiffness: 200, damping: 20 }}
+      className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group"
+    >
       {/* Image Section */}
       <div className="relative h-48 overflow-hidden">
         <img
@@ -56,6 +57,8 @@ const ReviewCard = ({
         <div className="absolute top-3 right-3">
           <FavoriteButton
             isFavorited={isFavorited}
+            setSignInModal={setSignInModal}
+            foodName={review?.food?.name}
             onToggle={() =>
               onToggleFavorite({
                 reviewId: review._id,
@@ -101,9 +104,7 @@ const ReviewCard = ({
           {/* Favorite Count */}
           <div className="flex items-center gap-1 text-neutral">
             <Heart className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold">
-              {totalFavorite}
-            </span>
+            <span className="text-sm font-semibold">{totalFavorite}</span>
           </div>
         </div>
 

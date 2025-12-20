@@ -20,13 +20,14 @@ import Reviews from "../pages/Public/Reviews/Reviews";
 import SignIn from "../pages/Public/SignIn/SignIn";
 import SignUp from "../pages/Public/SignUp/SignUp";
 import ReviewDetail from "../pages/public/ReviewDetails/ReviewDetails";
+import LoadingState from "../components/shared/LoadingState/LoadingState";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
     errorElement: <PageNotFound />,
-    // HydrateFallback: Loader,
+    HydrateFallback: LoadingState,
 
     children: [
       {

@@ -33,7 +33,7 @@ const SignUp = () => {
       let photoURL = null;
       let cloudinary_public_id = null;
 
-      //Upload photo to cloudinary if exists
+      //Upload photo to cloudinary
       if (data.photoFile) {
         const formData = new FormData();
         formData.append("image", data.photoFile);

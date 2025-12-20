@@ -3,7 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import LoadMoreData from "../../../features/LoadMoreData/LoadMoreData";
 import SearchBar from "../../../features/SearchBar/SearchBar";
 import ReviewCard from "../../../features/cards/ReviewCard";
@@ -12,6 +12,7 @@ import { useAllReviews } from "../../../hooks/review";
 import { useAuth } from "../../../providers/AuthProvider";
 import EmptyState from "./sections/EmptyState";
 import ReviewCardSkeleton from "./sections/ReviewCardSkeleton";
+import SignInAlertModal from "../../../features/modals/SignInAlertModal";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -33,15 +34,21 @@ const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [signInModal, setSignInModal] = useState({
+      isOpen: false,
+      foodName: null,
+    });
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const navigate = useNavigate();
+  const search = searchParams.get("search") || "";
   const queryClient = useQueryClient();
   const { dbUser } = useAuth();
 
   // api hooks
   const { data: reviewData, isPending: isPendingReview } = useAllReviews({
     page,
-    limit: 5,
+    limit: 10,
     search: debouncedSearch,
   });
   const { mutateAsync: addFavorite } = useAddFavorite();
@@ -71,7 +78,14 @@ const Reviews = () => {
       );
       setHasMore(reviewData.pagination.hasNextPage);
     }
-  }, [reviewData, page]);
+    if(search){
+      setSearchQuery(search);
+      setSearchParams((prev)=>{
+        prev.set("search", "");
+        return prev;
+      })
+    }
+  }, [reviewData, page, search, setSearchParams]);
 
   const handleSearchChange = (value) => {
     setSearchQuery(value);
@@ -130,6 +144,13 @@ const Reviews = () => {
 
   const handleViewDetails = (reviewId) => {
     navigate(`/review/${reviewId}`);
+  };
+
+  const handleNavigateSignIn = () => {
+    navigate("/signin");
+  };
+  const handleModalClose = () => {
+    setSignInModal({ isOpen: false, foodName: null });
   };
 
   return (
@@ -228,7 +249,7 @@ const Reviews = () => {
                       review={review}
                       onToggleFavorite={handleToggleFavorite}
                       onViewDetails={handleViewDetails}
-                      isLoggedIn={!!dbUser}
+                      setSignInModal={setSignInModal}
                     />
                   </motion.div>
                 ))}
@@ -254,6 +275,12 @@ const Reviews = () => {
           </motion.div>
         )}
       </div>
+      <SignInAlertModal
+        isOpen={signInModal.isOpen}
+        onConfirm={handleNavigateSignIn}
+        onClose={handleModalClose}
+        foodName={signInModal.foodName}
+      />
     </motion.div>
   );
 };

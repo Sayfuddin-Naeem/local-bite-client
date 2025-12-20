@@ -65,3 +65,14 @@
         @apply bg-linear-to-br from-base-100 via-base-200 to-base-300;
     }
 }
+
+/* Hero Slider */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+

@@ -2,10 +2,16 @@ import { Heart } from "lucide-react";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
-const FavoriteButton = ({ isFavorited, onToggle, isLoggedIn }) => {
+const FavoriteButton = ({
+  isFavorited,
+  onToggle,
+  isLoggedIn,
+  setSignInModal,
+  foodName,
+}) => {
   const handleClick = () => {
     if (!isLoggedIn) {
-      alert("Please sign in to add favorites");
+      setSignInModal({ isOpen: true, foodName: foodName });
       return;
     }
     onToggle();

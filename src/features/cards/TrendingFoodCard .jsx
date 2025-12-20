@@ -1,25 +1,39 @@
-import React from "react";
+import { Star } from "lucide-react";
 
-const TrendingFoodCard = ({ food }) => {
+const TrendingFoodCard = ({ food, onViewReview }) => {
   return (
-    <div className="card bg-linear-to-br from-base-100 to-base-200 shadow-lg hover:shadow-xl transition-all duration-300 rounded-(--radius-box)">
-      <figure className="px-4 pt-4">
-        <img 
-          src={food.image[0]} 
+    <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+      <figure className="relative h-48 overflow-hidden">
+        <img
+          src={food.image[0]}
           alt={food.name}
-          className="rounded-(--radius-box) h-48 w-full object-cover"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
-      </figure>
-      <div className="card-body items-center text-center p-4">
-        <h3 className="card-title font-popins text-lg">{food.name}</h3>
-        <div className="flex items-center gap-2">
-          <div className="rating rating-sm">
-            <StarIcon className="fill-primary w-4 h-4" />
-          </div>
-          <span className="text-sm font-semibold text-primary">{food.avgRating.toFixed(1)}</span>
-          <span className="text-xs text-neutral">({food.totalReviews} reviews)</span>
+        <div className="absolute top-3 right-3 badge badge-accent shadow-lg">
+          {food.category}
         </div>
-        <div className="badge badge-outline badge-sm mt-2">{food.category}</div>
+      </figure>
+      <div className="p-5 text-center">
+        <h3 className="text-lg font-bold text-base-content mb-2 font-popins line-clamp-1">
+          {food.name}
+        </h3>
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <div className="flex items-center">
+            <Star className="w-4 h-4 fill-primary text-primary" />
+          </div>
+          <span className="text-sm font-semibold text-primary">
+            {food.avgRating.toFixed(1)}
+          </span>
+          <span className="text-xs text-neutral">
+            ({food.totalReviews} reviews)
+          </span>
+        </div>
+        <button
+          onClick={()=> onViewReview(food.name)}
+          className="btn btn-sm btn-outline btn-primary rounded-full w-full mt-2"
+        >
+          View Reviews
+        </button>
       </div>
     </div>
   );
