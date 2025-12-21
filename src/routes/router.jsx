@@ -17,12 +17,13 @@ import ForgotPassword from "../pages/public/ForgotPassword/ForgotPassword";
 import Home from "../pages/public/Home/Home";
 import ResetPassword from "../pages/public/ResetPassword/ResetPassword";
 
-import SignIn from "../pages/Public/SignIn/SignIn";
-import SignUp from "../pages/Public/SignUp/SignUp";
+
 import ReviewDetail from "../pages/public/ReviewDetails/ReviewDetails";
 import LoadingState from "../components/shared/LoadingState/LoadingState";
 import About from "../pages/public/About/About";
 import Reviews from "../pages/public/Reviews/Reviews";
+import SignIn from "../pages/public/SignIn/SignIn";
+import SignUp from "../pages/public/SignUp/SignUp";
 
 const router = createBrowserRouter([
   {
