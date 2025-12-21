@@ -76,8 +76,8 @@ const AddEditReview = ({ isEditMode = false }) => {
         setRating(0);
         setImagePreview(null);
       }
-    } catch (error) {
-      console.error("Error:", error);
+    } catch {
+      // console.error("Error:", error);
       toast.error(
         "Failed to " + (isEditMode ? "update" : "create") + " review"
       );

@@ -47,7 +47,7 @@ export default function SignIn() {
           },
         });
       } catch {
-        console.log("Skipping createUser — user already exists");
+        console.log("User already exists");
       }
 
       setIsLoadUser(true);

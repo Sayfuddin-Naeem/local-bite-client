@@ -42,7 +42,22 @@ function ReviewForm({ isEditMode, setRating, rating, onSubmit, reviewId }) {
     resolver: zodResolver(isEditMode ? editReviewSchema : reviewSchema),
   });
 
-  // console.log(reviewData);
+  // reset form when add review
+  useEffect(() => {
+    if (!isEditMode) {
+      reset({
+        food: "",
+        foodDescription: "",
+        category: "",
+        text: "",
+        restaurantName: "",
+        restaurantLocation: "",
+      });
+      setRating(0);
+      setImagePreview(null);
+    }
+  }, [isEditMode, reset, setRating]);
+
   useEffect(() => {
     if (reviewId && reviewData) {
       const r = reviewData;

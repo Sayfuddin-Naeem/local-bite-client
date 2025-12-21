@@ -89,7 +89,7 @@ const SignUp = () => {
           },
         });
       } catch {
-        console.log("Skipping createUser — user already exists");
+        console.log("User already exists");
       }
 
       toast.success("Google Sign-in Successful!");

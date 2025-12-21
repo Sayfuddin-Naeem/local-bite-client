@@ -32,7 +32,7 @@ const HeroSlider = ({ slides }) => {
 
   const handleCTA = (cta) => {
     navigate(cta.to);
-    console.log(cta);
+    // console.log(cta);
   };
 
   return (
