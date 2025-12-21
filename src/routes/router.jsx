@@ -6,20 +6,17 @@ import PageNotFound from "../pages/error/PageNotFound";
 // security
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
+import LoadingState from "../components/shared/LoadingState/LoadingState";
 // Private page
 import MyFavorites from "../pages/private/MyFavorites/MyFavorites";
 import MyProfile from "../pages/private/MyProfile/MyProfile";
 import MyReviews from "../pages/private/MyReviews/MyReviews";
-// public page
 import AddEditReview from "../pages/private/AddReview/AddReview";
-
+// public page
 import ForgotPassword from "../pages/public/ForgotPassword/ForgotPassword";
 import Home from "../pages/public/Home/Home";
 import ResetPassword from "../pages/public/ResetPassword/ResetPassword";
-
-
 import ReviewDetail from "../pages/public/ReviewDetails/ReviewDetails";
-import LoadingState from "../components/shared/LoadingState/LoadingState";
 import About from "../pages/public/About/About";
 import Reviews from "../pages/public/Reviews/Reviews";
 import SignIn from "../pages/public/SignIn/SignIn";
